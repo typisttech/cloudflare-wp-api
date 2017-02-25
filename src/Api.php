@@ -97,10 +97,8 @@ class Api extends Cloudflare_Api
             return (null !== $val);
         });
 
-        $user_agent = __FILE__;
-        $headers    = [
+        $headers = [
             'Content-Type' => 'application/json',
-            'User-Agent'   => $user_agent,
             'X-Auth-Email' => $this->email,
             'X-Auth-Key'   => $this->auth_key,
         ];
@@ -120,7 +118,6 @@ class Api extends Cloudflare_Api
     /**
      * Validate the response from Cloudflare is not an error.
      *
-     * @see    https://api.cloudflare.com/#getting-started-responses
      * @since  0.1.0
      * @access private
      *
@@ -135,19 +132,25 @@ class Api extends Cloudflare_Api
         }
 
         try {
-            $json = json_decode($response['body']);
+            $responseJson = json_decode($response['body']);
+
+            if (true === $responseJson->success) {
+                return true;
+            }
+
+            $responseErrors = $responseJson->errors;
+            if (! is_array($responseErrors)) {
+                return new WP_Error('decode-error', 'Response errors is not an array', $response);
+            }
+
+            $wp_error = new WP_Error;
+            foreach ($responseErrors as $responseError) {
+                $wp_error->add($responseError->code, $responseError->message, $response);
+            }
+
+            return $wp_error;
         } catch (Exception $ex) {
             new WP_Error('json-decode-error', 'Unable to decode response json');
-        } // end try/catch
-
-
-        if (true === $json->success) {
-            return true;
         }
-
-        $errors     = $json->errors;
-        $firstError = $errors[0];
-
-        return new WP_Error($firstError->code, $firstError->message);
     }
 }
