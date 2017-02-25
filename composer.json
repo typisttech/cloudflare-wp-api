@@ -29,6 +29,9 @@
         "issues": "https://github.com/TypistTech/cloudflare-wp-api/issues",
         "source": "https://github.com/TypistTech/cloudflare-wp-api"
     },
+    "require-dev": {
+        "codeception/codeception": "^2.2"
+    },
     "autoload": {
         "psr-4": {
             "Cloudflare\\WP\\": "src"

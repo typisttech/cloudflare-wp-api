@@ -4,13 +4,13 @@
     <description>PSR 2</description>
 
     <file>./</file>
-    
+
     <exclude-pattern>/build/*</exclude-pattern>
     <exclude-pattern>/node_modules/*</exclude-pattern>
     <exclude-pattern>/release/*</exclude-pattern>
     <exclude-pattern>/tests/_data/*</exclude-pattern>
     <exclude-pattern>/tests/_outputs/*</exclude-pattern>
-    <exclude-pattern>/tests/_support/_generated/*</exclude-pattern>
+    <exclude-pattern>/tests/_support/*</exclude-pattern>
     <exclude-pattern>/vendor/*</exclude-pattern>
 
     <rule ref="PSR2" />
