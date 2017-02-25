@@ -7,6 +7,9 @@ branches:
     - master
     - /^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/
 
+services:
+  - mysql
+
 cache:
   directories:
     - $HOME/.composer/cache/files
@@ -33,9 +36,14 @@ matrix:
 
 before_install:
   # Disable xDebug to speed up the build unless test coverage is needed
-  - if [[ "$WITH_COVERAGE" != "true" ]]; then
+  - if [[ "$WITH_COVERAGE" != "true" && $(phpenv version-name) != "nightly" && $(phpenv version-name) != "hhvm" ]]; then
       phpenv config-rm xdebug.ini;
     fi
+
+  - travis_retry composer global require -n --prefer-dist "typisttech/travis-nginx-wordpress:^1.2"
+  - export PATH=$HOME/.composer/vendor/bin:$PATH
+  - travis_retry tnw-install-wordpress
+  - travis_retry tnw-prepare-codeception
 
 install:
   # Get back to Travis build dir
@@ -61,8 +69,6 @@ script:
 
 after_script:
   - if [[ "$WITH_COVERAGE" == "true" ]]; then
-      travis_retry composer global require -n --prefer-dist "typisttech/travis-nginx-wordpress:^1.2";
-      export PATH=$HOME/.composer/vendor/bin:$PATH;
       travis_retry tnw-upload-coverage-to-scrutinizer;
       travis_retry tnw-upload-coverage-to-codecov;
     fi
