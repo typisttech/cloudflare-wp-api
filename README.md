@@ -65,7 +65,8 @@ If you discover any security related issues, please email cloudflare-wp-api@typi
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+[Cloudflare WP API](https://github.com/TypistTech/cloudflare-wp-api) is licensed under the GPLv2 (or later) from the [Free Software Foundation](http://www.fsf.org/).
+Please see [License File](./LICENSE) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/typisttech/cloudflare-wp-api.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square

@@ -7,7 +7,7 @@
         "cloudflare-wp-api"
     ],
     "homepage": "https://github.com/typisttech/cloudflare-wp-api",
-    "license": "MIT",
+    "license": "GPL-2.0+",
     "authors": [
         {
             "name": "Typist Tech",
