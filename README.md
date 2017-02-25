@@ -16,7 +16,15 @@ WordPress HTTP API wrapper around the [jamesryanbell/cloudflare](https://packagi
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [To be continued..](#to-be-continued)
+- [Install](#install)
+- [Usage](#usage)
+- [Change log](#change-log)
+- [Testing](#testing)
+- [Feedback](#feedback)
+- [Contributing](#contributing)
+- [Security](#security)
+- [Credits](#credits)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
