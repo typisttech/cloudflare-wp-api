@@ -2,12 +2,12 @@
 
 Contributions are **welcome** and will be fully **credited**.
 
-We accept contributions via Pull Requests on [Github](https://github.com/typisttech/cloudflare-wp-api).
+We accept contributions via Pull Requests on [Github](https://github.com/TypistTech/cloudflare-wp-api).
 
 
 ## Pull Requests
 
-- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
+- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - Check the code style with ``$ phpcs -p --standard=PSR2 .``.
 
 - **Add tests!** - Your patch won't be accepted if it doesn't have tests.
 
@@ -25,7 +25,8 @@ We accept contributions via Pull Requests on [Github](https://github.com/typistt
 ## Running Tests
 
 ``` bash
-$ composer test
+$ vendor/bin/codecept build
+$ vendor/bin/codecept run
 ```
 
 

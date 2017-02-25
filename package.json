@@ -1,0 +1,34 @@
+{
+    "name": "cloudflare-wp-api",
+    "version": "0.1.0",
+    "description": "WordPress HTTP API wrapper around the jamesryanbell/cloudflare package.",
+    "keywords": [
+        "wordpress",
+        "wp",
+        "cloudflare",
+        "firewall",
+        "security"
+    ],
+    "homepage": "https://github.com/TypistTech/cloudflare-wp-api",
+    "bugs": {
+        "email": "cloudflare-wp-api@typist.tech",
+        "url": "https://github.com/TypistTech/cloudflare-wp-api/issues"
+    },
+    "license": "GPL-2.0+",
+    "author": "Typist Tech <cloudflare-wp-api@typist.tech> (http://typist.tech/)",
+    "contributors": [
+        "Tang Rufus <tangrufus@gmail.com> (http://typist.tech/)"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/TypistTech/cloudflare-wp-api.git"
+    },
+    "main": "Gruntfile.js",
+    "devDependencies": {
+        "grunt": "^1.0.1",
+        "grunt-exec": "^1.0.1",
+        "grunt-version": "^1.1.1",
+        "load-grunt-tasks": "^3.5.2"
+    },
+    "private": true
+}

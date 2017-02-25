@@ -20,7 +20,9 @@ Not obligatory, but suggest an idea for implementing addition or change.
 
 Include as many relevant details about the environment you experienced the bug in and how to reproduce it.
 
-* Version used (e.g. PHP 5.6, HHVM 3):
+* jamesryanbell/cloudflare version used (e.g. 1.8.3, dev-master):
+* WordPress version used (e.g. 4.7.3):
+* PHP version used (e.g. PHP 7.0, HHVM 3):
 * Operating system and version (e.g. Ubuntu 16.04, Windows 7):
 * Link to your project:
 * ...
