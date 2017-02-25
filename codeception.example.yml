@@ -1,0 +1,6 @@
+modules:
+  config:
+    WPLoader:
+      wpRootFolder: /srv/www/cloudflare-wp-api-tester/htdocs/
+      dbName: cloudflare-wp-api-tester_int
+      dbPassword: root

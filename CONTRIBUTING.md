@@ -29,5 +29,6 @@ $ vendor/bin/codecept build
 $ vendor/bin/codecept run
 ```
 
+See the [testing section](README.md#testing) in readme for more information.
 
 **Happy coding**!
