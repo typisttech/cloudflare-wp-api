@@ -1,6 +1,13 @@
 # Change Log
 
-## [0.1.0](https://github.com/TypistTech/cloudflare-wp-api/tree/0.1.0) (2017-02-26)
+## [0.1.1](https://github.com/TypistTech/cloudflare-wp-api/tree/0.1.1) (2017-02-26)
+[Full Changelog](https://github.com/TypistTech/cloudflare-wp-api/compare/0.1.0...0.1.1)
+
+**Merged pull requests:**
+
+- Version bump 0.1.0 [\#11](https://github.com/TypistTech/cloudflare-wp-api/pull/11) ([TangRufus](https://github.com/TangRufus))
+
+## [0.1.0](https://github.com/TypistTech/cloudflare-wp-api/tree/0.1.0) (2017-02-25)
 **Merged pull requests:**
 
 - Fix: sed does not work on linux [\#10](https://github.com/TypistTech/cloudflare-wp-api/pull/10) ([TangRufus](https://github.com/TangRufus))
