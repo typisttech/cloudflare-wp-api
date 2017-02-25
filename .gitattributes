@@ -22,12 +22,8 @@
 /CHANGELOG.md                   export-ignore
 /CONDUCT.md                     export-ignore
 /CONTRIBUTING.md                export-ignore
-/codecept-runner.php            export-ignore
-/codeception.dist.yml           export-ignore
-/codeception.yml                export-ignore
+/codecept*                      export-ignore
 /README.md                      export-ignore
 /ruleset.xml                    export-ignore
-/phpcs.xml                      export-ignore
-/phpcs.ruleset.xml              export-ignore
-/phpunit.xml                    export-ignore
-/phpunit.xml.dist               export-ignore
+/phpcs*                         export-ignore
+/phpunit*                       export-ignore
