@@ -43,5 +43,11 @@
     },
     "config": {
         "sort-packages": true
-    }
+    },
+    "scripts": {
+        "pre-autoload-dump": "bin/wpcf"
+    },
+    "bin": [
+        "bin/wpcf"
+    ]
 }

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+find ./vendor/jamesryanbell/cloudflare/src -type f \
+-exec sed -i '' 's/extends Api/extends \\Cloudflare\\WP\\Api/' {} +
+
+find ./vendor/jamesryanbell/cloudflare/src -type f \
+-exec sed -i '' 's/use Cloudflare\\Api;//' {} +
+
+
+echo "Files in $(pwd)/vendor/jamesryanbell/cloudflare/src processed"
+echo 'Bye'
+echo ''
+
+exit 0;

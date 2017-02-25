@@ -15,6 +15,7 @@
 namespace Cloudflare\WP;
 
 use Cloudflare\Api as Cloudflare_Api;
+use Exception;
 use WP_Error;
 
 /**
@@ -42,13 +43,14 @@ class Api extends Cloudflare_Api
             return $validAuth;
         }
 
-        $url      = 'https://api.cloudflare.com/client/v4/' . $path;
-        $args     = $this->prepareRequestArguments($data, $method);
+        $url  = 'https://api.cloudflare.com/client/v4/' . $path;
+        $args = $this->prepareRequestArguments($data, $method);
+
         $response = wp_remote_request($url, $args);
 
-        $validResponse = $this->validateResponse($response);
-        if (is_wp_error($validResponse)) {
-            return $validResponse;
+        $maybeErrorResponse = $this->validateResponse($response);
+        if (is_wp_error($maybeErrorResponse)) {
+            return $maybeErrorResponse;
         }
 
         return $response;
@@ -97,8 +99,8 @@ class Api extends Cloudflare_Api
 
         $user_agent = __FILE__;
         $headers    = [
-            'content-type' => 'application/json',
-            'user-agent'   => $user_agent,
+            'Content-Type' => 'application/json',
+            'User-Agent'   => $user_agent,
             'X-Auth-Email' => $this->email,
             'X-Auth-Key'   => $this->auth_key,
         ];
@@ -106,7 +108,7 @@ class Api extends Cloudflare_Api
         $method = strtoupper($method);
 
         $args = [
-            'body'    => $data,
+            'body'    => wp_json_encode($data),
             'headers' => $headers,
             'method'  => $method,
             'timeout' => 15,
@@ -122,28 +124,30 @@ class Api extends Cloudflare_Api
      * @since  0.1.0
      * @access private
      *
-     * @param array $response The response from Cloudflare.
+     * @param array|WP_Error $response The response from Cloudflare.
      *
      * @return true|WP_Error
      */
-    private function validateResponse(array $response)
+    private function validateResponse($response)
     {
-        $errors     = [
-            400 => 'Bad Request: request was invalid',
-            401 => 'Unauthorized: user does not have permission',
-            403 => 'Forbidden: request not authenticated',
-            405 => 'Method Not Allowed: incorrect HTTP method provided',
-            415 => 'Unsupported Media Type: response is not valid JSON',
-            429 => 'Too many requests: client is rate limited',
-        ];
-        $errorCodes = array_keys($errors);
+        if (is_wp_error($response)) {
+            return $response;
+        }
 
-        $responseCode = $response['response']['code'];
+        try {
+            $json = json_decode($response['body']);
+        } catch (Exception $ex) {
+            new WP_Error('json-decode-error', 'Unable to decode response json');
+        } // end try/catch
 
-        if (! in_array($responseCode, $errorCodes, true)) {
+
+        if (true === $json->success) {
             return true;
         }
 
-        return new WP_Error($responseCode, $errors[$responseCode]);
+        $errors     = $json->errors;
+        $firstError = $errors[0];
+
+        return new WP_Error($firstError->code, $firstError->message);
     }
 }

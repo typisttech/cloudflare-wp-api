@@ -29,6 +29,23 @@ Installation should be done via composer, details of how to install composer can
 $ composer require typisttech/cloudflare-wp-api
 ```
 
+Since the [jamesryanbell/cloudflare](https://packagist.org/packages/jamesryanbell/cloudflare) package doesn't provide a way to inject client objects,
+we have to change the source code inside ``vendor/jamesryanbell/cloudflare/src`` making all classes(except ``Cloudflare\Api``) to extends ``Cloudflare\WP\Api``.
+
+``` bash
+$ vendor/bin/wpcf
+```
+
+You have to run the command on every ``composer install`` and ``composer update``.
+A better way to do so is to add this command to ``composer.json`` like so:
+
+``` json
+  "scripts": {
+    "pre-autoload-dump": "vendor/bin/wpcf"
+  }
+```
+
+
 ## Usage
 
 Create a connection using ``Cloudflare\WP\Api`` first and then use it like the original package e.g.
