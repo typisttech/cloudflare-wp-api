@@ -19,4 +19,4 @@
  *
  * @link http://stackoverflow.com/questions/18606807/debugging-codeception-tests-with-xdebug
  */
-require __DIR__ . 'vendor/bin/codecept';
+require __DIR__ . '/vendor/bin/codecept';

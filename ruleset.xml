@@ -13,6 +13,6 @@
     <exclude-pattern>/tests/_support/*</exclude-pattern>
     <exclude-pattern>/vendor/*</exclude-pattern>
 
-    <rule ref="PSR2" />
+    <rule ref="PSR2"/>
 
 </ruleset>
