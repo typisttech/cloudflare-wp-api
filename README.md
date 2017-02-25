@@ -16,8 +16,11 @@ WordPress HTTP API wrapper around the [jamesryanbell/cloudflare](https://packagi
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
+- [Why use ``WP HTTP API`` instead of ``curl``?](#why-use-wp-http-api-instead-of-curl)
 - [Install](#install)
 - [Usage](#usage)
+  - [Successful responses](#successful-responses)
+  - [Error responses](#error-responses)
 - [Change log](#change-log)
 - [Testing](#testing)
 - [Feedback](#feedback)
@@ -28,6 +31,11 @@ WordPress HTTP API wrapper around the [jamesryanbell/cloudflare](https://packagi
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## Why use ``WP HTTP API`` instead of ``curl``?
+
+``curl`` is great. However, it is not always available on every hosts, especially shared hosting.
+Using [WordPress HTTP API](https://developer.wordpress.org/plugins/http-api/) lets WordPress figure out the best way to make HTTP requests.
+It could be ``curl`` or something else. You don't need to care about it. See [WordPress codex](https://codex.wordpress.org/HTTP_API).
 
 ## Install
 
@@ -73,13 +81,38 @@ $dns->create('12345678901234567890', 'A', 'name.com', '127.0.0.1', 120);
 If you directly when you instantiate the class, it's no difference from the original package e.g.
 
 ```php
-    use Cloudflare\Zone\Dns;
+use Cloudflare\Zone\Dns;
 
-    // Create a connection to the Cloudflare API which you can
-    // then pass into other services, e.g. DNS, later on
-    $dns = new Cloudflare\Zone\Dns('email@example.com', 'API_KEY');
-    $dns->create('12345678901234567890', 'TXT', 'name.com', '127.0.0.1', 120);
+// Create a connection to the Cloudflare API which you can
+// then pass into other services, e.g. DNS, later on
+$dns = new Cloudflare\Zone\Dns('email@example.com', 'API_KEY');
+$dns->create('12345678901234567890', 'TXT', 'name.com', '127.0.0.1', 120);
 ```
+
+See [jamesryanbell/cloudflare](https://github.com/jamesryanbell/cloudflare) for more details about the original package.
+
+### Successful responses
+
+Array returned from ``wp_remote_request``.
+
+### Error responses
+
+``WP_Error`` object. Maybe returned from ``wp_remote_request``, or one of the followings:
+
+| Code                  | Message                                       | Data      |
+|:---------------------:|:---------------------------------------------:|:---------:|
+| authentication-error  | Authentication information must be provided   |           |
+| authentication-error  | Email is not valid                            |           |
+| decode-error          | Response errors is not an array               | response  |
+| json-decode-error     | Unable to decode response json                | response  |
+
+Or, one of the Coudlfare defined error codes, here is some example:
+
+| Code  | Message                                                   | Data      |
+|:-----:|:---------------------------------------------------------:|:---------:|
+| 1012  | Request must contain one of 'purge_everything' or 'files' | response  |
+| 1210  | That operation is no longer allowed for that domain       | response  |
+
 
 ## Change log
 
