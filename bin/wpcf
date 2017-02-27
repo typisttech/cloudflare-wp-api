@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 find ./vendor/jamesryanbell/cloudflare/src -type f \
--exec sed -i -e 's/extends Api/extends \\Cloudflare\\WP\\Api/' {} +
+-exec sed -i.cfwpbak -e 's/extends Api/extends \\Cloudflare\\WP\\Api/' {} +
 
 find ./vendor/jamesryanbell/cloudflare/src -type f \
--exec sed -i -e 's/use Cloudflare\\Api;//' {} +
+-exec sed -i.cfwpbak -e 's/use Cloudflare\\Api;//' {} +
 
+find ./vendor/jamesryanbell/cloudflare/src -type f -name \*.cfwpbak -delete
 
 echo "Files in $(pwd)/vendor/jamesryanbell/cloudflare/src processed"
 echo 'Bye'
