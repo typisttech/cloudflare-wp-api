@@ -1,10 +1,18 @@
 # Change Log
 
-## [0.1.1](https://github.com/TypistTech/cloudflare-wp-api/tree/0.1.1) (2017-02-26)
+## [0.1.2](https://github.com/TypistTech/cloudflare-wp-api/tree/0.1.2) (2017-02-27)
+[Full Changelog](https://github.com/TypistTech/cloudflare-wp-api/compare/0.1.1...0.1.2)
+
+**Merged pull requests:**
+
+- Fix: wpcf generate backup files [\#13](https://github.com/TypistTech/cloudflare-wp-api/pull/13) ([TangRufus](https://github.com/TangRufus))
+
+## [0.1.1](https://github.com/TypistTech/cloudflare-wp-api/tree/0.1.1) (2017-02-25)
 [Full Changelog](https://github.com/TypistTech/cloudflare-wp-api/compare/0.1.0...0.1.1)
 
 **Merged pull requests:**
 
+- Version bump 0.1.1 - Tag version correctly [\#12](https://github.com/TypistTech/cloudflare-wp-api/pull/12) ([TangRufus](https://github.com/TangRufus))
 - Version bump 0.1.0 [\#11](https://github.com/TypistTech/cloudflare-wp-api/pull/11) ([TangRufus](https://github.com/TangRufus))
 
 ## [0.1.0](https://github.com/TypistTech/cloudflare-wp-api/tree/0.1.0) (2017-02-25)

@@ -1,6 +1,6 @@
 {
     "name": "cloudflare-wp-api",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "WordPress HTTP API wrapper around the jamesryanbell/cloudflare package.",
     "keywords": [
         "wordpress",
