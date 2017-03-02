@@ -108,7 +108,7 @@ $ vendor/bin/codecept build
 $ vendor/bin/codecept run
 ```
 
-We also test all PHP files against [PSR-2: Coding Style Guide](http://www.php-fig.org/psr/psr-2/) and [PSR-1: Coding Style Guide](http://www.php-fig.org/psr/psr-1/)..
+We also test all PHP files against [PSR-2: Coding Style Guide](http://www.php-fig.org/psr/psr-2/).
 
 With [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) installed, run:
 
@@ -124,7 +124,7 @@ Please submit an [issue](https://github.com/TypistTech/cloudflare-wp-api/issues/
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) and [CONDUCT](.github/CONDUCT.md) for details.
 
 ## Security
 

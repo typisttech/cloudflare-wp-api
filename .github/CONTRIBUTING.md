@@ -7,11 +7,11 @@ We accept contributions via Pull Requests on [Github](https://github.com/TypistT
 
 ## Pull Requests
 
-- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - Check the code style with ``$ phpcs -p --standard=PSR2 .``.
+- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - Check the code style with ``$ composer check-style``.
 
 - **Add tests!** - Your patch won't be accepted if it doesn't have tests.
 
-- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
+- **Document any change in behaviour** - Make sure the `../README.md` and any other relevant documentation are kept up-to-date.
 
 - **Consider our release cycle** - We try to follow [SemVer v2.0.0](http://semver.org/). Randomly breaking public APIs is not an option.
 
@@ -25,10 +25,9 @@ We accept contributions via Pull Requests on [Github](https://github.com/TypistT
 ## Running Tests
 
 ``` bash
-$ vendor/bin/codecept build
-$ vendor/bin/codecept run
+$ composer test
 ```
 
-See the [testing section](README.md#testing) in readme for more information.
+See the [testing section](../README.md#testing) in readme for more information.
 
 **Happy coding**!
