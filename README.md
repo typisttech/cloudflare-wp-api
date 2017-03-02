@@ -57,6 +57,8 @@ A better way to do so is to add this command to ``composer.json`` like so:
 
 ``` json
   "scripts": {
+    "post-install-cmd": "cfwp build",
+    "post-update-cmd": "cfwp build",
     "pre-autoload-dump": "cfwp build"
   }
 ```
@@ -104,17 +106,12 @@ See [codeception.example.yml](codeception.example.yml).
 Actually run the tests:
 
 ``` bash
-$ vendor/bin/codecept build
-$ vendor/bin/codecept run
+$ composer test
 ```
 
 We also test all PHP files against [PSR-2: Coding Style Guide](http://www.php-fig.org/psr/psr-2/).
 
-With [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) installed, run:
-
-``` bash
-$ phpcs -p --standard=ruleset.xml;
-```
+Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
 
 ## Feedback
 
@@ -141,4 +138,4 @@ Special thanks to [James Bell](https://james-bell.co.uk/) whose [Cloudflare pack
 ## License
 
 [Cloudflare WP API](https://github.com/TypistTech/cloudflare-wp-api) is licensed under the GPLv2 (or later) from the [Free Software Foundation](http://www.fsf.org/).
-Please see [License File](./LICENSE) for more information.
+Please see [License File](LICENSE) for more information.

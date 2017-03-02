@@ -34,7 +34,8 @@
     },
     "require-dev": {
         "lucatume/wp-browser": "^1.19",
-        "php-mock/php-mock-phpunit": "^1.1"
+        "php-mock/php-mock-phpunit": "^1.1",
+        "squizlabs/php_codesniffer": "^2.8"
     },
     "autoload": {
         "psr-4": {
@@ -42,10 +43,23 @@
         }
     },
     "config": {
+        "optimize-autoloader": true,
         "sort-packages": true
     },
     "scripts": {
-        "pre-autoload-dump": "bin/cfwp build"
+        "post-install-cmd": "./bin/cfwp build",
+        "post-update-cmd": "./bin/cfwp build",
+        "pre-autoload-dump": "./bin/cfwp build",
+        "check-style": "phpcs . --standard=ruleset.xml --colors -p -s",
+        "fix-style": "phpcbf . --standard=ruleset.xml -p --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1",
+        "pre-tag": [
+            "npm update",
+            "grunt pre-tag",
+            "doctoc README.md",
+            "github_changelog_generator --no-verbose"
+        ],
+        "test": "codecept run",
+        "test-with-coverage": "codecept run --coverage --coverage-xml --coverage-html"
     },
     "bin": [
         "bin/cfwp"
