@@ -11,7 +11,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/typisttech/cloudflare-wp-api/v/unstable)](https://packagist.org/packages/typisttech/cloudflare-wp-api)
 [![License](https://poser.pugx.org/typisttech/cloudflare-wp-api/license)](https://packagist.org/packages/typisttech/cloudflare-wp-api)
 
-WordPress HTTP API wrapper around the [jamesryanbell/cloudflare](https://packagist.org/packages/jamesryanbell/cloudflare) package.
+WordPress HTTP API replacement of the [jamesryanbell/cloudflare](https://packagist.org/packages/jamesryanbell/cloudflare) package.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -73,7 +73,7 @@ See [jamesryanbell/cloudflare](https://github.com/jamesryanbell/cloudflare) for 
 
 ### Successful responses
 
-Array returned from ``wp_remote_request``.
+Decode **body** array from ``wp_remote_request``.
 
 ### Error responses
 
@@ -84,7 +84,6 @@ Array returned from ``wp_remote_request``.
 | authentication-error  | Authentication information must be provided   |           |
 | authentication-error  | Email is not valid                            |           |
 | decode-error          | Response errors is not an array               | response  |
-| json-decode-error     | Unable to decode response json                | response  |
 
 Or, one of the Coudlfare defined error codes, here is some example:
 
@@ -93,16 +92,21 @@ Or, one of the Coudlfare defined error codes, here is some example:
 | 1012  | Request must contain one of 'purge_everything' or 'files' | response  |
 | 1210  | That operation is no longer allowed for that domain       | response  |
 
+## Start Developing
 
-## Change log
+This command will clone the project source code from GitHub and install its dependencies. 
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+``` bash
+$ composer create-project --no-install --prefer-source --keep-vcs typisttech/cloudflare-wp-api:dev-master
+$ cd cloudflare-wp-api
+$ composer install
+```
 
-## Testing
+## Running the Tests
 
 [Cloudflare WP API](https://github.com/TypistTech/cloudflare-wp-api) run tests on [Codeception](http://codeception.com/) and relies [wp-browser](https://github.com/lucatume/wp-browser) to provide WordPress integration.
 Before testing, you have to install WordPress locally and add a [codeception.yml](http://codeception.com/docs/reference/Configuration) file.
-See [codeception.example.yml](codeception.example.yml).
+See [codeception.example.yml](codeception.example.yml) for a [Varying Vagrant Vagrants](https://varyingvagrantvagrants.org/) configuration example.
 
 Actually run the tests:
 
@@ -120,6 +124,10 @@ Check the code style with ``$ composer check-style`` and fix it with ``$ compose
 Please submit an [issue](https://github.com/TypistTech/cloudflare-wp-api/issues/new) and point out what you do and don't like, or fork the project and make suggestions.
 **No issue is too small.**
 
+## Change log
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
 ## Contributing
 
 Please see [CONTRIBUTING](.github/CONTRIBUTING.md) and [CONDUCT](.github/CONDUCT.md) for details.
@@ -130,7 +138,7 @@ If you discover any security related issues, please email cloudflare-wp-api@typi
 
 ## Credits
 
-[Cloudflare WP API](https://github.com/TypistTech/cloudflare-wp-api) is [Typist Tech](https://www.typist.tech) project and maintained by [Tang Rufus](https://twitter.com/Tangrufus).
+[Cloudflare WP API](https://github.com/TypistTech/cloudflare-wp-api) is a [Typist Tech](https://www.typist.tech) project and maintained by [Tang Rufus](https://twitter.com/Tangrufus).
 
 Full list of contributors can be found [here](https://github.com/TypistTech/cloudflare-wp-api/graphs/contributors).
 

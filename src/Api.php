@@ -2,32 +2,28 @@
 /**
  * Cloudflare WP API.
  *
- * WordPress HTTP API wrapper around the jamesryanbell/cloudflare package.
+ * WordPress HTTP API replacement of the jamesryanbell/cloudflare package.
  *
  * @package   Cloudflare\WP
- * @author    Typist Tech <wp-cloudflare-guard@typist.tech>
+ * @author    Typist Tech <cloudflare-wp-api@typist.tech>
  * @copyright 2017 Typist Tech
  * @license   GPL-2.0+
- * @link      https://www.typist.tech/
- * @link      https://github.com/TypistTech/cloudflare-wp-api
+ * @see       https://www.typist.tech/projects/cloudflare-wp-api
  */
+
+declare(strict_types = 1);
 
 namespace Cloudflare;
 
-use Exception;
 use WP_Error;
 
 /**
  * Class Api.
- *
- * @since 0.1.0
  */
 class Api extends BaseApi
 {
     /**
      * API call method for sending requests via wp_remote_request.
-     *
-     * @since 0.1.0
      *
      * @param string      $path   Path of the endpoint
      * @param array|null  $data   Data to be sent along with the request
@@ -37,9 +33,9 @@ class Api extends BaseApi
      */
     protected function request($path, array $data = null, $method = null)
     {
-        $maybeInvalidAuth = $this->validateAuthenticationInfo();
-        if (is_wp_error($maybeInvalidAuth)) {
-            return $maybeInvalidAuth;
+        $authError = $this->authenticationError();
+        if (null !== $authError) {
+            return $authError;
         }
 
         $url  = 'https://api.cloudflare.com/client/v4/' . $path;
@@ -47,22 +43,19 @@ class Api extends BaseApi
 
         $response = wp_remote_request($url, $args);
 
-        $maybeErrorResponse = $this->validateResponse($response);
-        if (is_wp_error($maybeErrorResponse)) {
-            return $maybeErrorResponse;
+        if (is_wp_error($response)) {
+            return $response;
         }
 
-        return $response;
+        return $this->decode($response);
     }
 
     /**
-     * Validate that this object contain necessary info to perform API requests.
+     * Return WP Error if this object does not contain necessary info to perform API requests.
      *
-     * @since  0.1.0
-     * @access private
-     * @return true|WP_Error
+     * @return null|WP_Error
      */
-    private function validateAuthenticationInfo()
+    private function authenticationError()
     {
         if (empty($this->email) || empty($this->auth_key)) {
             return new WP_Error('authentication-error', 'Authentication information must be provided');
@@ -72,21 +65,18 @@ class Api extends BaseApi
             return new WP_Error('authentication-error', 'Email is not valid');
         }
 
-        return true;
+        return null;
     }
 
     /**
      * Prepare arguments for wp_remote_request.
-     *
-     * @since  0.1.0
-     * @access private
      *
      * @param array|null  $data   Data to be sent along with the request
      * @param string|null $method Type of method that should be used ('GET', 'POST', 'PUT', 'DELETE', 'PATCH')
      *
      * @return array
      */
-    private function prepareRequestArguments(array $data = null, $method = null)
+    private function prepareRequestArguments(array $data = null, string $method = null): array
     {
         $data   = (null === $data) ? [] : $data;
         $method = (null === $method) ? 'GET' : $method;
@@ -102,12 +92,10 @@ class Api extends BaseApi
             'X-Auth-Key'   => $this->auth_key,
         ];
 
-        $method = strtoupper($method);
-
         $args = [
             'body'    => wp_json_encode($data),
             'headers' => $headers,
-            'method'  => $method,
+            'method'  => strtoupper($method),
             'timeout' => 15,
         ];
 
@@ -115,43 +103,42 @@ class Api extends BaseApi
     }
 
     /**
-     * Validate the response from Cloudflare is not an error.
+     * Decode Cloudflare response.
      *
-     * @since  0.1.0
-     * @access private
+     * @param array $response The response from Cloudflare.
      *
-     * @param array|WP_Error $response The response from Cloudflare.
-     *
-     * @return true|WP_Error
+     * @return array|WP_Error
      */
-    private function validateResponse($response)
+    private function decode(array $response)
     {
-        if (is_wp_error($response)) {
-            return $response;
+        $decoded_body = json_decode($response['body'], true);
+
+        if (null === $decoded_body) {
+            return new WP_Error('decode-error', 'Unable to decode response body', $response);
         }
 
-        try {
-            $responseJson = json_decode($response['body']);
-
-            if (true === $responseJson->success) {
-                return $response;
-            }
-
-            $responseErrors = $responseJson->errors;
-            if (! is_array($responseErrors)) {
-                return new WP_Error('decode-error', 'Response errors is not an array', $response);
-            }
-
-            $wp_error = new WP_Error;
-            foreach ($responseErrors as $responseError) {
-                $wp_error->add($responseError->code, $responseError->message, $response);
-            }
-
-            return $wp_error;
-        } catch (Exception $ex) {
-            new WP_Error('json-decode-error', 'Unable to decode response json');
+        if (true !== $decoded_body['success']) {
+            return $this->wpErrorFor($decoded_body['errors'], $response);
         }
 
         return $response;
+    }
+
+    /**
+     * Decode Cloudflare error messages to WP Error.
+     *
+     * @param array $errors   The error messages from Cloudflare.
+     * @param array $response The full response from Cloudflare.
+     *
+     * @return WP_Error
+     */
+    private function wpErrorFor(array $errors, array $response): WP_Error
+    {
+        $wpError = new WP_Error;
+        foreach ($errors as $error) {
+            $wpError->add($error['code'], $error['message'], $response);
+        }
+
+        return $wpError;
     }
 }
