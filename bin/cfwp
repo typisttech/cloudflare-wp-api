@@ -1,16 +1,33 @@
 #!/usr/bin/env bash
 
 build() {
-    echo '> ' sed -i.cfwpbak -e 's/class Api/class BaseApi/' ./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php
-    sed -i.cfwpbak -e 's/class Api/class BaseApi/' ./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php
+    local api_file=./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php
+    local base_api_file=./vendor/jamesryanbell/cloudflare/src/CloudFlare/BaseApi.php
 
-    echo '> ' mv ./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php ./vendor/jamesryanbell/cloudflare/src/CloudFlare/BaseApi.php
-    mv ./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php ./vendor/jamesryanbell/cloudflare/src/CloudFlare/BaseApi.php
+    if [ -f ${api_file} ]
+    then
+        echo '> ' rm -f ${base_api_file}
+        rm -f ${base_api_file}
 
-    echo '> ' rm -f ./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php.cfwpbak
-    rm -f ./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php.cfwpbak
+        echo '> ' sed -i.cfwpbak -e 's/class Api/class BaseApi/' ${api_file}
+        sed -i.cfwpbak -e 's/class Api/class BaseApi/' ${api_file}
 
-    echo 'Done.'
+        echo '> ' mv ${api_file} ${base_api_file}
+        mv ${api_file} ${base_api_file}
+
+        echo '> ' rm -f ${api_file}.cfwpbak
+        rm -f ${api_file}.cfwpbak
+
+        echo 'Done.'
+    else
+        if [ -f ${base_api_file} ]
+        then
+            echo "Already build. Skipping."
+        else
+            echo "Error - File not found"
+            exit 1
+        fi
+    fi
 
     exit 0
 }
