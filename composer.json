@@ -30,7 +30,7 @@
         "source": "https://github.com/TypistTech/cloudflare-wp-api"
     },
     "require": {
-        "jamesryanbell/cloudflare": "^1.8"
+        "jamesryanbell/cloudflare": "^1.10"
     },
     "require-dev": {
         "lucatume/wp-browser": "^1.19",
@@ -38,16 +38,16 @@
     },
     "autoload": {
         "psr-4": {
-            "Cloudflare\\WP\\": "src"
+            "Cloudflare\\": "src"
         }
     },
     "config": {
         "sort-packages": true
     },
     "scripts": {
-        "pre-autoload-dump": "bin/wpcf"
+        "pre-autoload-dump": "bin/cfwp build"
     },
     "bin": [
-        "bin/wpcf"
+        "bin/cfwp"
     ]
 }

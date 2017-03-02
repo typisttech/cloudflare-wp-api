@@ -12,9 +12,8 @@
  * @link      https://github.com/TypistTech/cloudflare-wp-api
  */
 
-namespace Cloudflare\WP;
+namespace Cloudflare;
 
-use Cloudflare\Api as Cloudflare_Api;
 use Exception;
 use WP_Error;
 
@@ -23,7 +22,7 @@ use WP_Error;
  *
  * @since 0.1.0
  */
-class Api extends Cloudflare_Api
+class Api extends BaseApi
 {
     /**
      * API call method for sending requests via wp_remote_request.

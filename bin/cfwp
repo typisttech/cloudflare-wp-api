@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+build() {
+    echo '> ' sed -i.cfwpbak -e 's/class Api/class BaseApi/' ./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php
+    sed -i.cfwpbak -e 's/class Api/class BaseApi/' ./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php
+
+    echo '> ' mv ./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php ./vendor/jamesryanbell/cloudflare/src/CloudFlare/BaseApi.php
+    mv ./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php ./vendor/jamesryanbell/cloudflare/src/CloudFlare/BaseApi.php
+
+    echo '> ' rm -f ./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php.cfwpbak
+    rm -f ./vendor/jamesryanbell/cloudflare/src/CloudFlare/Api.php.cfwpbak
+
+    echo 'Done.'
+
+    exit 0
+}
+
+if [[ $1 =~ ^(build)$ ]]; then
+  "$@"
+else
+  echo "Invalid sub-command $1" >&2
+  echo "Usage: cfwp build" >&2
+  exit 1
+fi

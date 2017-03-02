@@ -1,6 +1,6 @@
 <?php
 
-namespace Cloudflare\WP;
+namespace Cloudflare;
 
 use phpmock\phpunit\PHPMock;
 use WP_Error;
@@ -11,6 +11,15 @@ use WP_Error;
 class ApiTest extends \Codeception\TestCase\WPTestCase
 {
     use PHPMock;
+
+    /**
+     * @coversNothing
+     */
+    public function testApiIsAnInstanceOfBaseApi()
+    {
+        $actual = new Api;
+        $this->assertInstanceOf(BaseApi::class, $actual);
+    }
 
     /**
      * @covers ::validateAuthenticationInfo
