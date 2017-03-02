@@ -52,7 +52,5 @@ script:
   - if [[ "$WITH_COVERAGE" != "true" ]]; then composer test; fi;
 
 after_script:
-  - if [[ "$WITH_COVERAGE" == "true" ]]; then
-      travis_retry tnw-upload-coverage-to-scrutinizer;
-      travis_retry tnw-upload-coverage-to-codecov;
-    fi
+  - if [[ "$WITH_COVERAGE" == "true" ]]; then travis_retry tnw-upload-coverage-to-scrutinizer; fi
+  - if [[ "$WITH_COVERAGE" == "true" ]]; then travis_retry tnw-upload-coverage-to-codecov; fi
