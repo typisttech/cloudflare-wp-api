@@ -1,10 +1,18 @@
 # Change Log
 
+## [0.3.0](https://github.com/TypistTech/cloudflare-wp-api/tree/0.3.0) (2017-03-02)
+[Full Changelog](https://github.com/TypistTech/cloudflare-wp-api/compare/0.2.0...0.3.0)
+
+**Merged pull requests:**
+
+- Refactor with PHP 7 [\#17](https://github.com/TypistTech/cloudflare-wp-api/pull/17) ([TangRufus](https://github.com/TangRufus))
+
 ## [0.2.0](https://github.com/TypistTech/cloudflare-wp-api/tree/0.2.0) (2017-03-02)
 [Full Changelog](https://github.com/TypistTech/cloudflare-wp-api/compare/0.1.2...0.2.0)
 
 **Merged pull requests:**
 
+- Version bump 0.2.0 [\#16](https://github.com/TypistTech/cloudflare-wp-api/pull/16) ([TangRufus](https://github.com/TangRufus))
 - Command: Change only one file in the original package [\#15](https://github.com/TypistTech/cloudflare-wp-api/pull/15) ([TangRufus](https://github.com/TangRufus))
 
 ## [0.1.2](https://github.com/TypistTech/cloudflare-wp-api/tree/0.1.2) (2017-02-27)
