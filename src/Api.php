@@ -78,8 +78,8 @@ class Api extends BaseApi
      */
     private function prepareRequestArguments(array $data = null, string $method = null): array
     {
-        $data = ( null === $data ) ? [] : $data;
-        $method = ( null === $method ) ? 'GET' : $method;
+        $data   = (null === $data) ? [] : $data;
+        $method = (null === $method) ? 'GET' : $method;
 
         // Removes null entries
         $data = array_filter($data, function ($val) {
