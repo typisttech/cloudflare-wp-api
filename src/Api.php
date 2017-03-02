@@ -37,9 +37,9 @@ class Api extends BaseApi
      */
     protected function request($path, array $data = null, $method = null)
     {
-        $validAuth = $this->validateAuthenticationInfo();
-        if (is_wp_error($validAuth)) {
-            return $validAuth;
+        $maybeInvalidAuth = $this->validateAuthenticationInfo();
+        if (is_wp_error($maybeInvalidAuth)) {
+            return $maybeInvalidAuth;
         }
 
         $url  = 'https://api.cloudflare.com/client/v4/' . $path;
@@ -134,7 +134,7 @@ class Api extends BaseApi
             $responseJson = json_decode($response['body']);
 
             if (true === $responseJson->success) {
-                return true;
+                return $response;
             }
 
             $responseErrors = $responseJson->errors;
@@ -151,5 +151,7 @@ class Api extends BaseApi
         } catch (Exception $ex) {
             new WP_Error('json-decode-error', 'Unable to decode response json');
         }
+
+        return $response;
     }
 }
