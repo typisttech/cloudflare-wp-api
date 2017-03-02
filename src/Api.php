@@ -12,9 +12,8 @@
  * @link      https://github.com/TypistTech/cloudflare-wp-api
  */
 
-namespace Cloudflare\WP;
+namespace Cloudflare;
 
-use Cloudflare\Api as Cloudflare_Api;
 use Exception;
 use WP_Error;
 
@@ -23,7 +22,7 @@ use WP_Error;
  *
  * @since 0.1.0
  */
-class Api extends Cloudflare_Api
+class Api extends BaseApi
 {
     /**
      * API call method for sending requests via wp_remote_request.
@@ -38,9 +37,9 @@ class Api extends Cloudflare_Api
      */
     protected function request($path, array $data = null, $method = null)
     {
-        $validAuth = $this->validateAuthenticationInfo();
-        if (is_wp_error($validAuth)) {
-            return $validAuth;
+        $maybeInvalidAuth = $this->validateAuthenticationInfo();
+        if (is_wp_error($maybeInvalidAuth)) {
+            return $maybeInvalidAuth;
         }
 
         $url  = 'https://api.cloudflare.com/client/v4/' . $path;
@@ -135,7 +134,7 @@ class Api extends Cloudflare_Api
             $responseJson = json_decode($response['body']);
 
             if (true === $responseJson->success) {
-                return true;
+                return $response;
             }
 
             $responseErrors = $responseJson->errors;
@@ -152,5 +151,7 @@ class Api extends Cloudflare_Api
         } catch (Exception $ex) {
             new WP_Error('json-decode-error', 'Unable to decode response json');
         }
+
+        return $response;
     }
 }

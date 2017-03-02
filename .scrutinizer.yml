@@ -1,7 +1,6 @@
 filter:
   excluded_paths:
     - 'tests/*'
-    - 'codeception-runner.php'
 
 checks:
   php:

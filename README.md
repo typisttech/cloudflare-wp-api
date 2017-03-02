@@ -3,9 +3,10 @@
 [![Latest Stable Version](https://poser.pugx.org/typisttech/cloudflare-wp-api/v/stable)](https://packagist.org/packages/typisttech/cloudflare-wp-api)
 [![Total Downloads](https://poser.pugx.org/typisttech/cloudflare-wp-api/downloads)](https://packagist.org/packages/typisttech/cloudflare-wp-api)
 [![Build Status](https://travis-ci.org/TypistTech/cloudflare-wp-api.svg?branch=master)](https://travis-ci.org/TypistTech/cloudflare-wp-api)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/TypistTech/cloudflare-wp-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/TypistTech/cloudflare-wp-api/?branch=master)
 [![codecov](https://codecov.io/gh/TypistTech/cloudflare-wp-api/branch/master/graph/badge.svg)](https://codecov.io/gh/TypistTech/cloudflare-wp-api)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/TypistTech/cloudflare-wp-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/TypistTech/cloudflare-wp-api/?branch=master)
 [![PHP Versions Tested](http://php-eye.com/badge/typisttech/cloudflare-wp-api/tested.svg)](https://travis-ci.org/TypistTech/cloudflare-wp-api)
+[![StyleCI](https://styleci.io/repos/83097565/shield?branch=master)](https://styleci.io/repos/83097565)
 [![Dependency Status](https://gemnasium.com/badges/github.com/TypistTech/cloudflare-wp-api.svg)](https://gemnasium.com/github.com/TypistTech/cloudflare-wp-api)
 [![Latest Unstable Version](https://poser.pugx.org/typisttech/cloudflare-wp-api/v/unstable)](https://packagist.org/packages/typisttech/cloudflare-wp-api)
 [![License](https://poser.pugx.org/typisttech/cloudflare-wp-api/license)](https://packagist.org/packages/typisttech/cloudflare-wp-api)
@@ -46,10 +47,10 @@ $ composer require typisttech/cloudflare-wp-api
 ```
 
 Since the [jamesryanbell/cloudflare](https://packagist.org/packages/jamesryanbell/cloudflare) package doesn't provide a way to inject client objects,
-we have to change the source code inside ``vendor/jamesryanbell/cloudflare/src`` making all classes(except ``Cloudflare\Api``) to extends ``Cloudflare\WP\Api``.
+we have to rename ``Cloudflare\Api`` to ``Cloudflare\BaseApi``. And, use our [``Api``](src/Api.php) class instead 
 
 ``` bash
-$ vendor/bin/wpcf
+$ vendor/bin/cfwp build
 ```
 
 You have to run the command on every ``composer install`` and ``composer update``.
@@ -57,37 +58,16 @@ A better way to do so is to add this command to ``composer.json`` like so:
 
 ``` json
   "scripts": {
-    "pre-autoload-dump": "vendor/bin/wpcf"
+    "post-install-cmd": "cfwp build",
+    "post-update-cmd": "cfwp build",
+    "pre-autoload-dump": "cfwp build"
   }
 ```
 
 
 ## Usage
 
-Create a connection using ``Cloudflare\WP\Api`` first and then use it like the original package e.g.
-
-``` php
-use Cloudflare\Zone\Dns;
-use Cloudflare\WP\Api;
-
-// Create a Cloudflare\WP\Api client
-$client = new Cloudflare\WP\Api('email@example.com', 'API_KEY');
-
-// Use it like the original package
-$dns = new Cloudflare\Zone\Dns($client);
-$dns->create('12345678901234567890', 'A', 'name.com', '127.0.0.1', 120);
-```
-
-If you directly when you instantiate the class, it's no difference from the original package e.g.
-
-```php
-use Cloudflare\Zone\Dns;
-
-// Create a connection to the Cloudflare API which you can
-// then pass into other services, e.g. DNS, later on
-$dns = new Cloudflare\Zone\Dns('email@example.com', 'API_KEY');
-$dns->create('12345678901234567890', 'TXT', 'name.com', '127.0.0.1', 120);
-```
+Once ``$ cfwp build`` is done, you can use it exactly the same as the original package. 
 
 See [jamesryanbell/cloudflare](https://github.com/jamesryanbell/cloudflare) for more details about the original package.
 
@@ -100,7 +80,7 @@ Array returned from ``wp_remote_request``.
 ``WP_Error`` object. Maybe returned from ``wp_remote_request``, or one of the followings:
 
 | Code                  | Message                                       | Data      |
-|:---------------------:|:---------------------------------------------:|:---------:|
+|:--------------------- |:--------------------------------------------- |:--------- |
 | authentication-error  | Authentication information must be provided   |           |
 | authentication-error  | Email is not valid                            |           |
 | decode-error          | Response errors is not an array               | response  |
@@ -109,7 +89,7 @@ Array returned from ``wp_remote_request``.
 Or, one of the Coudlfare defined error codes, here is some example:
 
 | Code  | Message                                                   | Data      |
-|:-----:|:---------------------------------------------------------:|:---------:|
+|:----- |:--------------------------------------------------------- |:--------- |
 | 1012  | Request must contain one of 'purge_everything' or 'files' | response  |
 | 1210  | That operation is no longer allowed for that domain       | response  |
 
@@ -127,17 +107,12 @@ See [codeception.example.yml](codeception.example.yml).
 Actually run the tests:
 
 ``` bash
-$ vendor/bin/codecept build
-$ vendor/bin/codecept run
+$ composer test
 ```
 
 We also test all PHP files against [PSR-2: Coding Style Guide](http://www.php-fig.org/psr/psr-2/).
 
-With [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) installed, run:
-
-``` bash
-$ phpcs -p --standard=ruleset.xml;
-```
+Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
 
 ## Feedback
 
@@ -147,7 +122,7 @@ Please submit an [issue](https://github.com/TypistTech/cloudflare-wp-api/issues/
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) and [CONDUCT](.github/CONDUCT.md) for details.
 
 ## Security
 
@@ -164,4 +139,4 @@ Special thanks to [James Bell](https://james-bell.co.uk/) whose [Cloudflare pack
 ## License
 
 [Cloudflare WP API](https://github.com/TypistTech/cloudflare-wp-api) is licensed under the GPLv2 (or later) from the [Free Software Foundation](http://www.fsf.org/).
-Please see [License File](./LICENSE) for more information.
+Please see [License File](LICENSE) for more information.

@@ -1,18 +1,28 @@
 <?php
 
-namespace Cloudflare\WP;
+namespace Cloudflare;
 
 use phpmock\phpunit\PHPMock;
 use WP_Error;
 
 /**
- * @coversDefaultClass \Cloudflare\WP\Api
+ * @coversDefaultClass \Cloudflare\Api
  */
 class ApiTest extends \Codeception\TestCase\WPTestCase
 {
     use PHPMock;
 
     /**
+     * @coversNothing
+     */
+    public function testApiIsAnInstanceOfBaseApi()
+    {
+        $actual = new Api;
+        $this->assertInstanceOf(BaseApi::class, $actual);
+    }
+
+    /**
+     * @covers ::request
      * @covers ::validateAuthenticationInfo
      */
     public function testMissingApiKey()
@@ -26,6 +36,7 @@ class ApiTest extends \Codeception\TestCase\WPTestCase
     }
 
     /**
+     * @covers ::request
      * @covers ::validateAuthenticationInfo
      */
     public function testMissingEmail()
@@ -39,6 +50,7 @@ class ApiTest extends \Codeception\TestCase\WPTestCase
     }
 
     /**
+     * @covers ::request
      * @covers ::validateAuthenticationInfo
      */
     public function testInvalidEmail()
@@ -51,6 +63,11 @@ class ApiTest extends \Codeception\TestCase\WPTestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @covers ::request
+     * @covers ::validateAuthenticationInfo
+     * @covers ::validateResponse
+     */
     public function testPassThroughSuccessResponse()
     {
         $body        = [
@@ -73,6 +90,7 @@ class ApiTest extends \Codeception\TestCase\WPTestCase
     }
 
     /**
+     * @covers ::request
      * @covers ::validateResponse
      */
     public function testPassThroughWPErrorResponse()
@@ -90,6 +108,7 @@ class ApiTest extends \Codeception\TestCase\WPTestCase
     }
 
     /**
+     * @covers ::request
      * @covers ::validateResponse
      */
     public function testWPErrorResponse()
@@ -102,8 +121,8 @@ class ApiTest extends \Codeception\TestCase\WPTestCase
                     'message' => 'You shall not pass',
                 ],
                 [
-                    'code'    => 'gandalf',
-                    'message' => 'I am a servant of the Secret Fire',
+                    'code'    => 'abc',
+                    'message' => 'Some error message',
                 ],
             ],
         ]);
@@ -117,7 +136,7 @@ class ApiTest extends \Codeception\TestCase\WPTestCase
         $actual = $client->get('some-path');
 
         $expected = new WP_Error(1234, 'You shall not pass', $response);
-        $expected->add('gandalf', 'I am a servant of the Secret Fire', $response);
+        $expected->add('abc', 'Some error message', $response);
 
         $this->assertEquals($expected, $actual);
     }

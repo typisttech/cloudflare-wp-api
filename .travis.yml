@@ -25,46 +25,33 @@ php:
   - nightly
   - hhvm
 
+env:
+  global:
+    - COMPOSER_NO_INTERACTION=1
+
 matrix:
     allow_failures:
         - php: nightly
     fast_finish: true
     include:
         - php: 7.0
-          env: WITH_COVERAGE=true WITH_PHPCS=true
+          env: WITH_COVERAGE=true
 
 before_install:
   # Disable xDebug to speed up the build unless test coverage is needed
-  - if [[ "$WITH_COVERAGE" != "true" && $(phpenv version-name) != "nightly" && $(phpenv version-name) != "hhvm" ]]; then
-      phpenv config-rm xdebug.ini;
-    fi
+  - if [[ "$WITH_COVERAGE" != "true" && $(phpenv version-name) != "nightly" && $(phpenv version-name) != "hhvm" ]]; then phpenv config-rm xdebug.ini; fi
 
-  - travis_retry composer global require -n --prefer-dist "typisttech/travis-nginx-wordpress:^1.2"
+  - travis_retry composer global require --prefer-dist "typisttech/travis-nginx-wordpress:^1.2"
   - export PATH=$HOME/.composer/vendor/bin:$PATH
   - travis_retry tnw-install-wordpress
   - travis_retry tnw-prepare-codeception
 
 install:
-  # Get back to Travis build dir
-  - cd $TRAVIS_BUILD_DIR
-
-  # Build tests
-  - travis_retry composer install --prefer-dist --no-interaction --no-suggest
-  - vendor/bin/codecept build -n
+  - travis_retry composer install --prefer-dist --no-suggest
 
 script:
-  # Get back to Travis build dir
-  - cd $TRAVIS_BUILD_DIR
-
-  - if [[ "$WITH_COVERAGE" == "true" ]]; then
-      vendor/bin/codecept run -n -vvv --steps --coverage --coverage-xml;
-    else
-      vendor/bin/codecept run -n -vvv --steps;
-    fi
-
-  - if [[ "$WITH_PHPCS" == "true" ]]; then
-      phpcs -p --standard=ruleset.xml;
-    fi
+  - if [[ "$WITH_COVERAGE" == "true" ]]; then composer test-with-coverage; fi;
+  - if [[ "$WITH_COVERAGE" != "true" ]]; then composer test; fi;
 
 after_script:
   - if [[ "$WITH_COVERAGE" == "true" ]]; then
