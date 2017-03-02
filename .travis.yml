@@ -35,7 +35,7 @@ matrix:
     fast_finish: true
     include:
         - php: 7.0
-          env: WITH_COVERAGE=true WITH_STYLE_CHECK=true
+          env: WITH_COVERAGE=true
 
 before_install:
   # Disable xDebug to speed up the build unless test coverage is needed
@@ -52,8 +52,6 @@ install:
 script:
   - if [[ "$WITH_COVERAGE" == "true" ]]; then composer test-with-coverage; fi;
   - if [[ "$WITH_COVERAGE" != "true" ]]; then composer test; fi;
-
-  - if [[ "$WITH_STYLE_CHECK" == "true" ]]; then composer check-style; fi
 
 after_script:
   - if [[ "$WITH_COVERAGE" == "true" ]]; then

@@ -6,6 +6,7 @@
 [![codecov](https://codecov.io/gh/TypistTech/cloudflare-wp-api/branch/master/graph/badge.svg)](https://codecov.io/gh/TypistTech/cloudflare-wp-api)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/TypistTech/cloudflare-wp-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/TypistTech/cloudflare-wp-api/?branch=master)
 [![PHP Versions Tested](http://php-eye.com/badge/typisttech/cloudflare-wp-api/tested.svg)](https://travis-ci.org/TypistTech/cloudflare-wp-api)
+[![StyleCI](https://styleci.io/repos/83097565/shield?branch=master)](https://styleci.io/repos/83097565)
 [![Dependency Status](https://gemnasium.com/badges/github.com/TypistTech/cloudflare-wp-api.svg)](https://gemnasium.com/github.com/TypistTech/cloudflare-wp-api)
 [![Latest Unstable Version](https://poser.pugx.org/typisttech/cloudflare-wp-api/v/unstable)](https://packagist.org/packages/typisttech/cloudflare-wp-api)
 [![License](https://poser.pugx.org/typisttech/cloudflare-wp-api/license)](https://packagist.org/packages/typisttech/cloudflare-wp-api)
