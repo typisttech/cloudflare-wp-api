@@ -1,7 +1,7 @@
 {
     "name": "typisttech/cloudflare-wp-api",
     "type": "library",
-    "description": "WordPress HTTP API wrapper around the jamesryanbell/cloudflare package.",
+    "description": "WordPress HTTP API replacement of the jamesryanbell/cloudflare package.",
     "version": "0.2.0",
     "keywords": [
         "typisttech",

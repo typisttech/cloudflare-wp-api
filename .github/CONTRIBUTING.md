@@ -28,6 +28,6 @@ We accept contributions via Pull Requests on [Github](https://github.com/TypistT
 $ composer test
 ```
 
-See the [testing section](../README.md#testing) in readme for more information.
+See [`Running the Tests`](../README.md#running-the-tests) section in readme for more information.
 
 **Happy coding**!

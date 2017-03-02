@@ -2,7 +2,7 @@
 /**
  * Cloudflare WP API.
  *
- * WordPress HTTP API wrapper around the jamesryanbell/cloudflare package.
+ * WordPress HTTP API replacement of the jamesryanbell/cloudflare package.
  *
  * @package   Cloudflare\WP
  * @author    Typist Tech <cloudflare-wp-api@typist.tech>
@@ -19,8 +19,6 @@ use WP_Error;
 
 /**
  * Class Api.
- *
- * @since 0.1.0
  */
 class Api extends BaseApi
 {
