@@ -84,7 +84,6 @@ Array returned from ``wp_remote_request``.
 | authentication-error  | Authentication information must be provided   |           |
 | authentication-error  | Email is not valid                            |           |
 | decode-error          | Response errors is not an array               | response  |
-| json-decode-error     | Unable to decode response json                | response  |
 
 Or, one of the Coudlfare defined error codes, here is some example:
 
