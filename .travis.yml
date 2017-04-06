@@ -1,6 +1,9 @@
 language: php
 
-sudo: false
+dist: trusty
+
+# Wait until travis bug fixes
+sudo: require
 
 branches:
   only:
@@ -10,6 +13,7 @@ branches:
 services:
   - mysql
 
+## Cache composer
 cache:
   directories:
     - $HOME/.composer/cache/files
@@ -20,37 +24,42 @@ notifications:
     on_failure: change
 
 php:
+  - 7.0
   - 7.1
   - nightly
 
 env:
   global:
     - COMPOSER_NO_INTERACTION=1
+  matrix:
+    - COMPOSER_DEPENDENCIES="highest"
+    - COMPOSER_DEPENDENCIES=""
 
 matrix:
-    allow_failures:
-        - php: nightly
-    fast_finish: true
-    include:
-        - php: 7.0
-          env: WITH_COVERAGE=true
+  allow_failures:
+    - php: nightly
+  fast_finish: true
 
-before_install:
+before_script:
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" && "$COMPOSER_DEPENDENCIES" == "" ]]; then WITH_COVERAGE=true; fi
+
   # Disable xDebug to speed up the build unless test coverage is needed
-  - if [[ "$WITH_COVERAGE" != "true" && $(phpenv version-name) != "nightly" && $(phpenv version-name) != "hhvm" ]]; then phpenv config-rm xdebug.ini; fi
+  - if [[ "$WITH_COVERAGE" != "true" && $(phpenv version-name) != "nightly" ]]; then phpenv config-rm xdebug.ini; fi
 
-  - travis_retry composer global require --prefer-dist "typisttech/travis-nginx-wordpress:^1.2"
+  # Install helper scripts
+  - travis_retry composer global require --prefer-dist typisttech/travis-nginx-wordpress
   - export PATH=$HOME/.composer/vendor/bin:$PATH
   - travis_retry tnw-install-wordpress
   - travis_retry tnw-prepare-codeception
 
-install:
-  - travis_retry composer install --prefer-dist --no-suggest
+  - if [[ "$COMPOSER_DEPENDENCIES" == "highest" ]]; then travis_retry composer update --prefer-dist; fi
+  - if [[ "$COMPOSER_DEPENDENCIES" == "" ]]; then travis_retry composer install --prefer-dist; fi
 
 script:
-  - if [[ "$WITH_COVERAGE" == "true" ]]; then composer test-with-coverage; fi;
-  - if [[ "$WITH_COVERAGE" != "true" ]]; then composer test; fi;
+  - if [[ "$WITH_COVERAGE" != "true" ]]; then composer test; fi
+  - if [[ "$WITH_COVERAGE" == "true" ]]; then composer test-with-coverage; fi
 
 after_script:
+  # Upload coverage report
   - if [[ "$WITH_COVERAGE" == "true" ]]; then travis_retry tnw-upload-coverage-to-scrutinizer; fi
   - if [[ "$WITH_COVERAGE" == "true" ]]; then travis_retry tnw-upload-coverage-to-codecov; fi

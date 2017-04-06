@@ -1,10 +1,10 @@
 modules:
-  config:
-    WPLoader:
-      # Change wpRootFolder!
-      wpRootFolder: /Users/developer/vagrant-local/www/cloudflare-wp-api-tester/htdocs/
-      # Change dbname!
-      dbName: cloudflare-wp-api-tester_int
-      dbHost: vvv.dev
-      dbUser: external
-      dbPassword: external
+    config:
+        WPLoader:
+            # Change wpRootFolder!
+            wpRootFolder: /Users/developer/vagrant-local/www/cloudflare-wp-api-tester/htdocs/
+            # Change dbname!
+            dbName: cloudflare-wp-api-tester_int
+            dbHost: vvv.dev
+            dbUser: external
+            dbPassword: external

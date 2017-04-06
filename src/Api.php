@@ -1,6 +1,6 @@
 <?php
 /**
- * Cloudflare WP API.
+ * Cloudflare WP API
  *
  * WordPress HTTP API replacement of the jamesryanbell/cloudflare package.
  *
@@ -11,7 +11,7 @@
  * @see       https://www.typist.tech/projects/cloudflare-wp-api
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Cloudflare;
 
@@ -25,9 +25,9 @@ class Api extends BaseApi
     /**
      * API call method for sending requests via wp_remote_request.
      *
-     * @param string      $path   Path of the endpoint
-     * @param array|null  $data   Data to be sent along with the request
-     * @param string|null $method Type of method that should be used ('GET', 'POST', 'PUT', 'DELETE', 'PATCH')
+     * @param string      $path   Path of the endpoint.
+     * @param array|null  $data   Data to be sent along with the request.
+     * @param string|null $method Type of method that should be used ('GET', 'POST', 'PUT', 'DELETE', 'PATCH').
      *
      * @return  array|WP_Error
      */
@@ -71,17 +71,17 @@ class Api extends BaseApi
     /**
      * Prepare arguments for wp_remote_request.
      *
-     * @param array|null  $data   Data to be sent along with the request
-     * @param string|null $method Type of method that should be used ('GET', 'POST', 'PUT', 'DELETE', 'PATCH')
+     * @param array|null  $data   Data to be sent along with the request.
+     * @param string|null $method Type of method that should be used ('GET', 'POST', 'PUT', 'DELETE', 'PATCH').
      *
      * @return array
      */
     private function prepareRequestArguments(array $data = null, string $method = null): array
     {
-        $data   = (null === $data) ? [] : $data;
-        $method = (null === $method) ? 'GET' : $method;
+        $data   = $data ?? [];
+        $method = $method ?? 'GET';
 
-        // Removes null entries
+        // Removes null entries.
         $data = array_filter($data, function ($val) {
             return (null !== $val);
         });
@@ -111,14 +111,14 @@ class Api extends BaseApi
      */
     private function decode(array $response)
     {
-        $decoded_body = json_decode($response['body'], true);
+        $decodedBody = json_decode($response['body'], true);
 
-        if (null === $decoded_body) {
+        if (null === $decodedBody) {
             return new WP_Error('decode-error', 'Unable to decode response body', $response);
         }
 
-        if (true !== $decoded_body['success']) {
-            return $this->wpErrorFor($decoded_body['errors'], $response);
+        if (true !== $decodedBody['success']) {
+            return $this->wpErrorFor($decodedBody['errors'], $response);
         }
 
         return $response;
