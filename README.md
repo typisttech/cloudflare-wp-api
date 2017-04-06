@@ -8,8 +8,9 @@
 [![PHP Versions Tested](http://php-eye.com/badge/typisttech/cloudflare-wp-api/tested.svg)](https://travis-ci.org/TypistTech/cloudflare-wp-api)
 [![StyleCI](https://styleci.io/repos/83097565/shield?branch=master)](https://styleci.io/repos/83097565)
 [![Dependency Status](https://gemnasium.com/badges/github.com/TypistTech/cloudflare-wp-api.svg)](https://gemnasium.com/github.com/TypistTech/cloudflare-wp-api)
-[![Latest Unstable Version](https://poser.pugx.org/typisttech/cloudflare-wp-api/v/unstable)](https://packagist.org/packages/typisttech/cloudflare-wp-api)
 [![License](https://poser.pugx.org/typisttech/cloudflare-wp-api/license)](https://packagist.org/packages/typisttech/cloudflare-wp-api)
+[![Donate via PayPal](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.typist.tech/donate/cloudflare-wp-api/)
+[![Hire Typist Tech](https://img.shields.io/badge/Hire-Typist%20Tech-ff69b4.svg)](https://www.typist.tech/contact/)
 
 WordPress HTTP API replacement of the [jamesryanbell/cloudflare](https://packagist.org/packages/jamesryanbell/cloudflare) package.
 
@@ -60,8 +61,7 @@ A better way to do so is to add this command to ``composer.json`` like so:
 ``` json
   "scripts": {
     "post-install-cmd": "cfwp build",
-    "post-update-cmd": "cfwp build",
-    "pre-autoload-dump": "cfwp build"
+    "post-update-cmd": "cfwp build"
   }
 ```
 
@@ -115,7 +115,7 @@ Actually run the tests:
 $ composer test
 ```
 
-We also test all PHP files against [PSR-2: Coding Style Guide](http://www.php-fig.org/psr/psr-2/).
+We also test all PHP files against [PSR-2: Coding Style Guide](http://www.php-fig.org/psr/psr-2/) and part of the [WordPress coding standard](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards).
 
 Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
 
@@ -129,17 +129,17 @@ Please submit an [issue](https://github.com/TypistTech/cloudflare-wp-api/issues/
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## Contributing
-
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) and [CONDUCT](.github/CONDUCT.md) for details.
-
 ## Security
 
 If you discover any security related issues, please email cloudflare-wp-api@typist.tech instead of using the issue tracker.
 
+## Contributing
+
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) and [CONDUCT](.github/CONDUCT.md) for details.
+
 ## Credits
 
-[Cloudflare WP API](https://github.com/TypistTech/cloudflare-wp-api) is a [Typist Tech](https://www.typist.tech) project and maintained by [Tang Rufus](https://twitter.com/Tangrufus).
+[Cloudflare WP API](https://github.com/TypistTech/cloudflare-wp-api) is a [Typist Tech](https://www.typist.tech) project and maintained by [Tang Rufus](https://twitter.com/Tangrufus), freelance developer for [hire](https://www.typist.tech/contact/).
 
 Full list of contributors can be found [here](https://github.com/TypistTech/cloudflare-wp-api/graphs/contributors).
 
